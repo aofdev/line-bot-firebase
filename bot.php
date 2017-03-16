@@ -37,6 +37,33 @@ if (!is_null($events['events'])) {
                 $result = curl_exec($ch);
                 curl_close($ch);
                 echo $result . "\r\n";
+            }else if ($event['message']['text'] == 'firebase' || $event['message']['text'] == 'google'){
+
+                // Constants
+                $FIREBASE = "https://webapp-pwa.firebaseio.com/year/";
+                $NODE_PUT = "number.json";
+                $data = 32;
+                $num = rand(1,100);
+                // Matching nodes updated
+                $data = array(
+                    "num" => $num
+                );
+                    // JSON encoded
+                $json = json_encode( $data );
+                // Initialize cURL
+                $curl = curl_init();
+            //Create
+                 curl_setopt( $curl, CURLOPT_URL, $FIREBASE . $NODE_PUT );
+                 curl_setopt( $curl, CURLOPT_CUSTOMREQUEST, "PUT" );
+                curl_setopt( $curl, CURLOPT_POSTFIELDS, 32 );
+               // Get return value
+                curl_setopt( $curl, CURLOPT_RETURNTRANSFER, true );
+                // Make request
+                // Close connection
+                $response = curl_exec( $curl );
+                curl_close( $curl );
+                // Show result
+                echo $response . "\n";
             }
 
             // Build message to reply back
