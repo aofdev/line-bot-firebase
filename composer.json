@@ -1,0 +1,12 @@
+{
+    "name": "aofdev/line-bot",
+    "authors": [
+        {
+            "name": "aofdev",
+            "email": "aof.dev@gmail.com"
+        }
+    ],
+    "require": {
+    "php": "^5.6.0"
+    }
+}
