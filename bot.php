@@ -12,10 +12,13 @@ if (!is_null($events['events'])) {
 	foreach ($events['events'] as $event) {
 		// Reply only when message sent is in 'text' format
 		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
-
-            $result = $bot->replyText($event['replyToken'], $event['message']['text']);
+            $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($event['message']['text']);
+            $result = $bot->replyText($event['replyToken'], $textMessageBuilder);
 			// Make a POST Request to Messaging API to reply to sender
-            
+            if ($result->isSucceeded()) {
+                echo 'Succeeded!';
+                return;
+            }
             return $result->getHTTPStatus() . ' ' . $result->getRawBody();
 		}
 	}
