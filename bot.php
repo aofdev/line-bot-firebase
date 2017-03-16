@@ -18,8 +18,8 @@ if (!is_null($events['events'])) {
              if ($event['message']['text'] == 'hi' || $event['message']['text'] == 'hello'){
                 $messages = [
                     'type' => 'sticker',
-                    'packageId' => 4,
-                    'stickerId' => 1,
+                    'packageId' => 1,
+                    'stickerId' => 4,
                 ];
                 $url = 'https://api.line.me/v2/bot/message/reply';
                 $data = [
