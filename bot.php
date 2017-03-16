@@ -40,7 +40,7 @@ if (!is_null($events['events'])) {
             }else if ($event['message']['text'] == 'firebase' || $event['message']['text'] == 'google'){
                 
                 // Constants firebase
-                 $length = 10;
+                 $length = 15;
                 $randomString = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
 
                 // Constants
@@ -58,7 +58,7 @@ if (!is_null($events['events'])) {
             //Create
                  curl_setopt( $curl, CURLOPT_URL, $FIREBASE . $NODE_PUT );
                  curl_setopt( $curl, CURLOPT_CUSTOMREQUEST, "PUT" );
-                curl_setopt( $curl, CURLOPT_POSTFIELDS, 32 );
+                curl_setopt( $curl, CURLOPT_POSTFIELDS, $json);
                // Get return value
                 curl_setopt( $curl, CURLOPT_RETURNTRANSFER, true );
                 // Make request
