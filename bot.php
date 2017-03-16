@@ -27,10 +27,10 @@ if (!is_null($events['events'])) {
                     'replyToken' => $replyToken,
                     'messages' => [$messages],
                 ];
-                $post = json_encode($data);
                
-                    $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('test sdk');
-                    $response = $bot->replyMessage($replyToken, $textMessageBuilder);
+               
+                    $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('testsdk');
+                    $response = $bot->replyMessage("'".$replyToken."'", $textMessageBuilder);
 
                     echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
             }
