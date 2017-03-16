@@ -16,8 +16,7 @@ if (!is_null($events['events'])) {
             $result = $bot->replyText($event['replyToken'], $textMessageBuilder);
 			// Make a POST Request to Messaging API to reply to sender
             if ($result->isSucceeded()) {
-                echo 'Succeeded!';
-                return;
+                echo $result;
             }
             return $result->getHTTPStatus() . ' ' . $result->getRawBody();
 		}
