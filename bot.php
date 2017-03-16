@@ -40,8 +40,8 @@ if (!is_null($events['events'])) {
             }else if ($event['message']['text'] == 'firebase' || $event['message']['text'] == 'google'){
                 
                 // Constants firebase
-                $FIREBASE = "https://webapp-pwa.firebaseio.com/object/last";
-                $NODE_PUT = "number.json";
+              $FIREBASE = "https://webapp-pwa.firebaseio.com/youtube/";
+                $NODE_PUT = ".json";
                 $num = rand(1,100);
                 // Matching nodes updated
                 $data = array(
