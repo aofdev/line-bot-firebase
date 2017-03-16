@@ -38,18 +38,17 @@ if (!is_null($events['events'])) {
                 curl_close($ch);
                 echo $result . "\r\n";
             }else if ($event['message']['text'] == 'firebase' || $event['message']['text'] == 'google'){
-
-                // Constants
-                $FIREBASE = "https://webapp-pwa.firebaseio.com/year/";
+                
+                // Constants firebase
+                $FIREBASE = "https://webapp-pwa.firebaseio.com/object/last";
                 $NODE_PUT = "number.json";
-                $data = 32;
                 $num = rand(1,100);
                 // Matching nodes updated
                 $data = array(
                     "num" => $num
                 );
                     // JSON encoded
-                $json = json_encode( $data );
+                $json = json_encode($data);
                 // Initialize cURL
                 $curl = curl_init();
             //Create
