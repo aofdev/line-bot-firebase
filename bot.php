@@ -1,6 +1,5 @@
 <?php
-$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('D8p6zodWI7B3lFnlf+Ejqko3sbgRsYOfxYIszOJw2GzPR9EjCOcZVoon6ytNMd7JcC/O1YzhplEkLNr4Y/QpT0MWAC0f0YR6ID6hyRI1MfMKs/ouGeIB6S6aDs9FGbyWzABgfqhCBOTnXHkNAJU1/QdB04t89/1O/w1cDnyilFU=');
-$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => 'd82b27a585108c6d25b1e40b6cc1cb0d']);
+$access_token = 'D8p6zodWI7B3lFnlf+Ejqko3sbgRsYOfxYIszOJw2GzPR9EjCOcZVoon6ytNMd7JcC/O1YzhplEkLNr4Y/QpT0MWAC0f0YR6ID6hyRI1MfMKs/ouGeIB6S6aDs9FGbyWzABgfqhCBOTnXHkNAJU1/QdB04t89/1O/w1cDnyilFU=';
 // Get POST body content
 $content = file_get_contents('php://input');
 // Parse JSON
@@ -27,12 +26,17 @@ if (!is_null($events['events'])) {
                     'replyToken' => $replyToken,
                     'messages' => [$messages],
                 ];
-               
-               
-                    $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('testsdk');
-                    $response = $bot->replyMessage("'".$replyToken."'", $textMessageBuilder);
-
-                    echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
+                $post = json_encode($data);
+                $headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+                $ch = curl_init($url);
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+                curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+                $result = curl_exec($ch);
+                curl_close($ch);
+                echo $result . "\r\n";
             }
 
             // Build message to reply back
