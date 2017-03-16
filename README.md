@@ -1,1 +1,1 @@
-# Line Bot + Firebase RealtimeDatabase Test
+# Line Bot + Firebase RealtimeDatabase
