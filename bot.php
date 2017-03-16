@@ -40,12 +40,16 @@ if (!is_null($events['events'])) {
             }else if ($event['message']['text'] == 'firebase' || $event['message']['text'] == 'google'){
                 
                 // Constants firebase
-              $FIREBASE = "https://webapp-pwa.firebaseio.com/youtube/";
-                $NODE_PUT = ".json";
-                $num = rand(1,100);
+                 $length = 10;
+                $randomString = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
+
+                // Constants
+                $FIREBASE = "https://webapp-pwa.firebaseio.com/youtube/";
+                $NODE_PUT = $randomString.".json";
+                $randomString2 = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 11);
                 // Matching nodes updated
                 $data = array(
-                    "num" => $num
+                    "url" => $randomString2
                 );
                     // JSON encoded
                 $json = json_encode($data);
