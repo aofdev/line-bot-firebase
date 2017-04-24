@@ -73,36 +73,28 @@ if (!is_null($events['events'])) {
                     $statusId = substr($getDataTp, 14, 1);
 
 
-               $curl = curl_init();
+            
 
-            curl_setopt_array($curl, array(
-                CURLOPT_PORT => "8000",
-                    CURLOPT_URL => "http://127.0.0.1:8000/api/transport/status",
-                CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-             CURLOPT_TIMEOUT => 30,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => "POST",
-  CURLOPT_POSTFIELDS => "codeTransport=gxAvCDatqe&statusId=5",
-  CURLOPT_HTTPHEADER => array(
-    "cache-control: no-cache",
-    "content-type: application/x-www-form-urlencoded",
-    "postman-token: a373bb6b-3267-3b3a-57c3-ffae995152b2"
-  ),
-));
+                 $post = [
+                     'codeTransport' => $codeTransport,
+                     'statusId'   => $statusId,
+                 ];
+                $ch = curl_init('http://127.0.0.1:8000/api/transport/status');
+                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                 curl_setopt($ch,CURLOPT_POST, 1);
+                 curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+                // execute!
+                 $response = curl_exec($ch);
+                // close the connection, release resources used
+                 curl_close($ch);
 
-$response = curl_exec($curl);
-$err = curl_error($curl);
-
-curl_close($curl);
 
 
 
                  // Build message to reply back
                  $messages = [
                      'type' => 'text',
-                     'text' => 'success'
+                     'text' => 'success'.$response
                  ];
                  // Make a POST Request to Messaging API to reply to sender
                  $url = 'https://api.line.me/v2/bot/message/reply';
