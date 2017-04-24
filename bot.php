@@ -1,5 +1,5 @@
 <?php
-$access_token = 'D8p6zodWI7B3lFnlf+Ejqko3sbgRsYOfxYIszOJw2GzPR9EjCOcZVoon6ytNMd7JcC/O1YzhplEkLNr4Y/QpT0MWAC0f0YR6ID6hyRI1MfMKs/ouGeIB6S6aDs9FGbyWzABgfqhCBOTnXHkNAJU1/QdB04t89/1O/w1cDnyilFU=';
+$access_token = '_token_';
 // Get POST body content
 $content = file_get_contents('php://input');
 // Parse JSON
@@ -44,7 +44,7 @@ if (!is_null($events['events'])) {
                 $randomString = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
 
                 // Constants
-                   $FIREBASE = "https://webapp-pwa.firebaseio.com/youtube/";
+                   $FIREBASE = "firebase_url";
                 $NODE_PUT = $randomString.".json";
                 $randomString2 = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 11);
                 // Matching nodes updated
@@ -79,7 +79,7 @@ if (!is_null($events['events'])) {
                      'codeTransport' => $codeTransport,
                      'statusId'   => $statusId,
                  ];
-                $ch = curl_init('http://aofdev.ddns.net/furniture/public/api/transport/status');
+                $ch = curl_init('http://..');
                  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                  curl_setopt($ch,CURLOPT_POST, 1);
                  curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
