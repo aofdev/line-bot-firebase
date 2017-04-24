@@ -1,5 +1,5 @@
 <?php
-$access_token = 'ACCESS_TOKEN';
+$access_token = 'D8p6zodWI7B3lFnlf+Ejqko3sbgRsYOfxYIszOJw2GzPR9EjCOcZVoon6ytNMd7JcC/O1YzhplEkLNr4Y/QpT0MWAC0f0YR6ID6hyRI1MfMKs/ouGeIB6S6aDs9FGbyWzABgfqhCBOTnXHkNAJU1/QdB04t89/1O/w1cDnyilFU=';
 // Get POST body content
 $content = file_get_contents('php://input');
 // Parse JSON
@@ -44,7 +44,7 @@ if (!is_null($events['events'])) {
                 $randomString = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
 
                 // Constants
-                $FIREBASE = "_YOUR_FIREBASE_URL_";
+                   $FIREBASE = "https://webapp-pwa.firebaseio.com/youtube/";
                 $NODE_PUT = $randomString.".json";
                 $randomString2 = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 11);
                 // Matching nodes updated
@@ -67,7 +67,52 @@ if (!is_null($events['events'])) {
                 curl_close( $curl );
                 // Show result
                 echo $response . "\n";
-            }
+            }else if(strpos($event['message']['text'], 'tp-') !== false){
+                    $getDataTp = $event['message']['text'];
+                    $codeTransport = substr($getDataTp, 3, 10);
+                    $statusId = substr($getDataTp, 14, 1);
+
+
+                 $post = [
+                     'codeTransport' => $codeTransport,
+                     'statusId'   => $statusId,
+                 ];
+                $ch = curl_init('http://127.0.0.1:8000/api/transport/status');
+                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                 curl_setopt($ch,CURLOPT_POST, 1);
+                 curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+                // execute!
+                 $response = curl_exec($ch);
+                // close the connection, release resources used
+                 curl_close($ch);
+
+
+
+                 // Build message to reply back
+                 $messages = [
+                     'type' => 'text',
+                     'text' => 'success'
+                 ];
+                 // Make a POST Request to Messaging API to reply to sender
+                 $url = 'https://api.line.me/v2/bot/message/reply';
+                 $data = [
+                     'replyToken' => $replyToken,
+                     'messages' => [$messages],
+                 ];
+                 $post = json_encode($data);
+                 $headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+
+                 $ch = curl_init($url);
+                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                 curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+                 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+                 curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+                 $result = curl_exec($ch);
+                 curl_close($ch);
+                 echo $result . "\r\n";
+
+             }
 
             // Build message to reply back
             $messages = [
