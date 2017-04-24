@@ -85,19 +85,20 @@ if (!is_null($events['events'])) {
                  curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
                 // execute!
                  $response = curl_exec($ch);
-             
-      
+              $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+                $err = curl_error($ch);
+                 
                
-                    
+                     curl_close($ch);
 
 
 
                  // Build message to reply back
                  $messages = [
                      'type' => 'text',
-                     'text' => 'success-'.$response
+                     'text' => 'success-'.$err.'http'.$http_status
                  ];
-                     curl_close($ch);
+                    
                  // Make a POST Request to Messaging API to reply to sender
                  $url = 'https://api.line.me/v2/bot/message/reply';
                  $data = [
