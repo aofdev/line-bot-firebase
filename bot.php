@@ -79,7 +79,7 @@ if (!is_null($events['events'])) {
                      'codeTransport' => $codeTransport,
                      'statusId'   => $statusId,
                  ];
-                $ch = curl_init('http://192.168.1.50:9000/api/transport/status');
+                $ch = curl_init('http://aofdev.ddns.net/furniture/public/api/transport/status');
                  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                  curl_setopt($ch,CURLOPT_POST, 1);
                  curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
